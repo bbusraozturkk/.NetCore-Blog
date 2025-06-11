@@ -1,0 +1,59 @@
+﻿@model EntityLayer.Concrete.Writer
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<section class="main-content-w3layouts-agileits py-5" style="background-color: #f8f9fa;">
+    <div class="container">
+        <h3 class="text-center mb-4 text-primary">Register Now</h3>
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-lg border-0 rounded-4">
+                    <div class="card-body p-5">
+                        @using (Html.BeginForm("Index", "Register", FormMethod.Post))
+                        {
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">First Name</label>
+                                @Html.TextBoxFor(x => x.WriterName, new { @class = "form-control", placeholder = "Enter your name" })
+                                @Html.ValidationMessageFor(x => x.WriterName, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Email Address</label>
+                                @Html.TextBoxFor(x => x.WriterMail, new { @class = "form-control", placeholder = "Enter your email" })
+                                @Html.ValidationMessageFor(x => x.WriterMail, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Password</label>
+                                @Html.PasswordFor(x => x.WriterPassword, new { @class = "form-control", placeholder = "Enter your password" })
+                                @Html.ValidationMessageFor(x => x.WriterPassword, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Image Path</label>
+                                @Html.TextBoxFor(x => x.WriterImage, new { @class = "form-control", placeholder = "Enter image URL or path" })
+                                @Html.ValidationMessageFor(x => x.WriterImage, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="d-grid gap-2 mb-3">
+                                <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                            </div>
+                            <p class="text-center">
+                                <a href="#" id="btn1" class="text-decoration-none">By clicking Register, I agree to your terms</a>
+                            </p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('#btn1').click(function (e) {
+            e.preventDefault();
+            swal("Site Kabul Şartları","Sitemizde verdiğiniz mail adresi üzerinden bilgi ve haber e-postaları spam ölçüsüne varmadan gönderilmeye devam edilecektir. Eğer e-posta bülteninden çıkmak isterseniz mail ileti dizisini durdurabilirsiniz. Şifre ve mail adresleriniz şifrelenmiş formatta herhangi bir kullanıcının göremeyeceği şekilde veri tabanlarımızda saklanmaktadır.");
+        });
+    </script>
+</section>
