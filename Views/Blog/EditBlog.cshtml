@@ -1,0 +1,56 @@
+﻿@model EntityLayer.Concrete.Blog
+@{
+    ViewData["Title"] = "EditBlog";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-warning text-white text-center rounded-top">
+                    <h3 class="mb-0">✏️ Blog Düzenle ✏️</h3>
+                    <small class="text-light">Blog bilgilerini güncelle!</small>
+                </div>
+                <div class="card-body p-5">
+                    @using (Html.BeginForm("EditBlog", "Blog", FormMethod.Post))
+                    {
+                        @Html.HiddenFor(x => x.BlogID)
+
+                        <div class="mb-3">
+                            @Html.LabelFor(x => x.BlogTitle, new { @class = "form-label fw-bold" })
+                            @Html.TextBoxFor(x => x.BlogTitle, new { @class = "form-control", placeholder = "Blog başlığını güncelleyin..." })
+                            @Html.ValidationMessageFor(x => x.BlogTitle, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="mb-3">
+                            @Html.LabelFor(x => x.BlogThumbnailImage, new { @class = "form-label fw-bold" })
+                            @Html.TextBoxFor(x => x.BlogThumbnailImage, new { @class = "form-control", placeholder = "Blog küçük görsel URL'sini güncelleyin..." })
+                        </div>
+
+                        <div class="mb-3">
+                            @Html.LabelFor(x => x.BlogImage, new { @class = "form-label fw-bold" })
+                            @Html.TextBoxFor(x => x.BlogImage, new { @class = "form-control", placeholder = "Blog görsel URL'sini güncelleyin..." })
+                            @Html.ValidationMessageFor(x => x.BlogImage, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="mb-3">
+                            @Html.LabelFor(x => x.CategoryID, new { @class = "form-label fw-bold" })
+                            @Html.DropDownListFor(x => x.CategoryID, (List<SelectListItem>)ViewBag.cv, "Kategori Seçiniz", new { @class = "form-control" })
+                        </div>
+
+                        <div class="mb-3">
+                            @Html.LabelFor(x => x.BlogContent, new { @class = "form-label fw-bold" })
+                            @Html.TextAreaFor(x => x.BlogContent, 10, 3, new { @class = "form-control", placeholder = "Blog içeriğinizi güncelleyin..." })
+                            @Html.ValidationMessageFor(x => x.BlogContent, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg px-5 py-2 shadow-sm">💾 Kaydet</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

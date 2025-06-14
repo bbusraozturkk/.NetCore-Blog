@@ -15,7 +15,7 @@ namespace CoreDemo.Controllers
         {
             return View();
         }  
-        [HttpGet]
+        [HttpPost]
         public IActionResult Index(Contact p)
         {
             p.ContactDate = DateTime.Parse(DateTime.Now.ToShortDateString());

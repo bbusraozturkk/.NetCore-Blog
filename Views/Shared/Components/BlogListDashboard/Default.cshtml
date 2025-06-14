@@ -1,0 +1,53 @@
+﻿<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Son 10 Blog</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th> Görsel </th>
+                                <th> Başlık </th>
+                                <th> Kategori </th>
+                                <th> Tarih </th>
+                                <th> Detaylar </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <!-- Görsel sütunu -->
+                                    <td>
+                                        <img src="~/writer/assets/images/faces/face1.jpg"
+                                             alt="image"
+                                             style="width: 40px; height: 40px; border-radius: 50%;" />
+                                    </td>
+
+                                    <!-- Başlık sütunu -->
+                                    <td>
+                                        <span style="font-weight: 500;">@item.BlogTitle</span>
+                                    </td>
+
+                                    <!-- Kategori sütunu -->
+                                    <td>
+                                        <label class="badge badge-gradient-success">@item.Category.CategoryName</label>
+                                    </td>
+
+                                    <!-- Tarih sütunu -->
+                                    <td>@item.BlogCreateDate.ToString("dd-MMM-yyyy")</td>
+
+                                    <!-- Detaylar butonu -->
+                                    <td>
+                                        <a href="/Blog/BlogReadAll/@item.BlogID" class="btn btn-sm btn-outline-primary">Detaylar</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
