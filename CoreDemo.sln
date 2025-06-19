@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35806.99 d17.13
+VisualStudioVersion = 17.13.35806.99
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreDemo", "CoreDemo.csproj", "{03E68AB3-B2E5-4BE8-95BE-A231C1800B48}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business-Layer", "..\Business-Layer\Business-Layer.csproj", "{5C3143A9-43A1-455F-8199-84637C32AA15}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreLayer", "..\CoreLayer\CoreLayer.csproj", "{80910502-21B9-41EB-A899-A14C2BE99A16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogApiDemo", "..\BlogApiDemo\BlogApiDemo.csproj", "{B5CDF126-B277-4DE9-B837-12492DA72929}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{80910502-21B9-41EB-A899-A14C2BE99A16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80910502-21B9-41EB-A899-A14C2BE99A16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80910502-21B9-41EB-A899-A14C2BE99A16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5CDF126-B277-4DE9-B837-12492DA72929}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5CDF126-B277-4DE9-B837-12492DA72929}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5CDF126-B277-4DE9-B837-12492DA72929}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5CDF126-B277-4DE9-B837-12492DA72929}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

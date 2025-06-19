@@ -1,0 +1,45 @@
+﻿@model EntityLayer.Concrete.Message2
+@{
+    ViewData["Title"] = "SendMessage";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white text-center rounded-top">
+                    <h3 class="mb-0">✨ Yeni Mesaj Girişi ✨</h3>
+                    <small class="text-light">Paylaşmak istediğin fikirleri burada yaz!</small>
+                </div>
+                <div class="card-body p-5">
+                    @using (Html.BeginForm("SendMessage", "Message", FormMethod.Post))
+                    {
+                        <div class="mb-3">
+                            @Html.Label("Alıcı")
+                            @* @Html.TextBoxFor(x => x.Subject, new { @class = "form-control", placeholder = "Blog başlığını giriniz..." }) *@
+                            <input type="text" class="form-control"/>
+                        </div>
+
+                        <div class="mb-3">
+                            @Html.Label("Konu")
+                            @Html.TextBoxFor(x => x.Subject, new { @class = "form-control", placeholder = "Görsel URL'sini giriniz..." })
+                        </div>
+
+                        <div class="mb-3">
+                            @Html.Label("Mesajınız")
+                            @Html.TextAreaFor(x => x.MessageDetails, 10, 3, new { @class = "form-control", placeholder = "Blog içeriğinizi buraya yazın..." })
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-success btn-lg px-5 py-2 shadow-sm">Mesajı Gönder</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

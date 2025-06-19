@@ -1,7 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BlogApiDemo.DataAccessLayer;
+using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+
 
 namespace CoreDemo
 {
@@ -25,7 +29,16 @@ namespace CoreDemo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<Context>();
+            services.AddIdentity<AppUser, AppRole>(x =>
+            {
+                x.Password.RequireUppercase = false;
+
+
+            }).AddEntityFrameworkStores<Context>();
+
             services.AddControllersWithViews();
+            services.AddSession();
             services.AddMvc(config =>
             {
                 var policy = new AuthorizationPolicyBuilder()
@@ -34,6 +47,14 @@ namespace CoreDemo
 
                 config.Filters.Add(new AuthorizeFilter(policy));
             });
+            services.AddMvc();
+            services.AddAuthentication(
+                CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(x =>
+                {
+                    x.LoginPath = "/Login/Index";
+                });
+
 
         }
 
@@ -52,7 +73,8 @@ namespace CoreDemo
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
+            app.UseAuthentication();
             app.UseRouting();
 
             app.UseAuthorization();
@@ -60,9 +82,27 @@ namespace CoreDemo
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+          name: "areas",
+          pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+        );
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
 }
+//HTTP dediğimiz web protokolü stateless'tir → yani "durumsuzdur."
+//Her istek bağımsızdır. Sunucu senin önceki isteklerini hatırlamaz.
+
+//Eğer:
+
+//Kullanıcı giriş yaptı mı?
+
+//Kullanıcının adı neydi?
+
+//Hangi dil seçilmişti?
+
+//gibi bilgileri hatırlamak istersen → cookie veya başka teknikler kullanmak zorundasın.
+
+//Cookie en yaygın ve basit çözümüdür.

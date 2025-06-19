@@ -1,7 +1,7 @@
 ﻿<div class="comment-top">
 	<h4>Leave a Comment</h4>
 	<div class="comment-bottom">
-		<form action="/Comment/PartialAddComment/" method="post">
+		<form action="/Comment/PartialAddComment/" method="post" asp-action="PartialAddComment">
 			<input class="form-control" type="text" name="CommentUserName" placeholder="Ad Soyad" required="">
 			<input class="form-control" type="email" name="CommentTitle" placeholder="Konu" required="">
 			<textarea class="form-control" name="CommentContent" placeholder="Message..." required=""></textarea>

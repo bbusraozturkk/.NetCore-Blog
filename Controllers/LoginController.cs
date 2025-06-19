@@ -1,8 +1,10 @@
-﻿using DataAccessLayer.Concrete;
+﻿using CoreDemo.Models;
+using DataAccessLayer.Concrete;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,30 +24,55 @@ namespace CoreDemo.Controllers
             return View();
         }
 
-        [AllowAnonymous]
-        [HttpPost]
-        public async Task< IActionResult> Index(Writer p)
-        {
-            Context c = new Context();
-            var datavalue = c.Writers.FirstOrDefault(x => x.WriterMail == p.WriterMail && x.WriterPassword == p.WriterPassword);
-            if (datavalue != null)
-            {
-                var claims = new List<Claim>
-                //Claim → "kullanıcı hakkında bilgi"dir.Bu örnekte kullanıcının mail adresini bir claim olarak kaydediyoruz.Bu bilgi daha sonra kullanılır → "Kim login oldu?", "Hangi mail ile?" vs.
-    {
-        new Claim(ClaimTypes.Name, p.WriterMail)
-    };
-                var useridentity = new ClaimsIdentity(claims, "a");
-                ClaimsPrincipal principal = new ClaimsPrincipal(useridentity); //Principal → kullanıcının tüm kimliğini ve claimlerini temsil eder.Kısaca: Principal → "Bu kişi şu claim'lere sahip şu kullanıcıdır."
-                await HttpContext.SignInAsync(principal);//Bu komutla cookie'ye bu principal (kullanıcı bilgisi) kaydediliyor.Tarayıcıya bir cookie gönderiliyor → böylece kullanıcı login olmuş sayılıyor.
-                return RedirectToAction("Index", "Dashboard");
-            }
-            else
-            {
-                return View();
-            }
+        private readonly SignInManager<AppUser> _signInManager;
 
+        public LoginController(SignInManager<AppUser> signInManager)
+        {
+            _signInManager = signInManager;
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Index(UserSignInViewModel p)
+        {
+            if (ModelState.IsValid) { 
+            var result = await _signInManager.PasswordSignInAsync(p.username, p.password, false, true);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Dashboard");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+            }
+            return View();
+        }
+
+
+        //    [AllowAnonymous]
+        //    [HttpPost]
+        //    public async Task< IActionResult> Index(Writer p)
+        //    {
+        //        Context c = new Context();
+        //        var datavalue = c.Writers.FirstOrDefault(x => x.WriterMail == p.WriterMail && x.WriterPassword == p.WriterPassword);
+        //        if (datavalue != null)
+        //        {
+        //            var claims = new List<Claim>
+        //            //Claim → "kullanıcı hakkında bilgi"dir.Bu örnekte kullanıcının mail adresini bir claim olarak kaydediyoruz.Bu bilgi daha sonra kullanılır → "Kim login oldu?", "Hangi mail ile?" vs.
+        //{
+        //    new Claim(ClaimTypes.Name, p.WriterMail)
+        //};
+        //            var useridentity = new ClaimsIdentity(claims, "a");
+        //            ClaimsPrincipal principal = new ClaimsPrincipal(useridentity); //Principal → kullanıcının tüm kimliğini ve claimlerini temsil eder.Kısaca: Principal → "Bu kişi şu claim'lere sahip şu kullanıcıdır."
+        //            await HttpContext.SignInAsync(principal);//Bu komutla cookie'ye bu principal (kullanıcı bilgisi) kaydediliyor.Tarayıcıya bir cookie gönderiliyor → böylece kullanıcı login olmuş sayılıyor.
+        //            return RedirectToAction("Index", "Dashboard");
+        //        }
+        //        else
+        //        {
+        //            return View();
+        //        }
+
+        //    }
     }
 }
 //Context c = new Context();
