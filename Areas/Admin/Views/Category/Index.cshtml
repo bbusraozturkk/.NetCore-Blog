@@ -1,0 +1,61 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<EntityLayer.Concrete.Category>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <h4 class="mb-3 text-center text-primary">Kategori Listesi</h4>
+    <table class="table table-bordered table-hover table-striped shadow">
+        <thead class="table-secondary text-center">
+            <tr>
+                <th style="width: 5%;">#</th>
+                <th style="width: 35%;">Kategori Adı</th>
+                <th style="width: 20%;">Pasif Yap</th>
+                <th style="width: 20%;">Aktif Yap</th>
+                <th style="width: 20%;">Düzenle</th>
+            </tr>
+        </thead>
+        <tbody class="text-center align-middle">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.CategoryID</td>
+                    <td>@item.CategoryName</td>
+                    <td>
+                        <a href="/Admin/Category/CategoryDelete/@item.CategoryID/" id="DeleteBtn" onclick="return confirm('Silmek istediğinize emin misiniz?') "class="btn btn-outline-danger btn-sm">
+                            <i class="fas fa-ban"></i> Pasif Yap
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#" class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-check"></i> Aktif Yap
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#" class="btn btn-outline-success btn-sm">
+                            <i class="fas fa-edit"></i> Düzenle
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a href="/Admin/Category/AddCategory" class="btn btn-primary">Yeni kategori</a>
+
+</div>
+
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
+
+
+
+
+
+
+
+
+
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
